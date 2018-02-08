@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="react-native," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,23 @@
 
 
 
-<meta name="description" content="react-native记录react native开发过程的种姿势和bug收集 欢迎反馈和bug提供 tools react-native-cli，官方推出创建项目的工具（自带Watchman依赖，不行另行安装）。 create-react-native-app，是由Facebook和Expo联合开发用于快速创建项目的工具，特点无需用户再按装adroid sdk和xcode。需要搭配Expo开发">
-<meta name="keywords" content="react-native">
+<meta name="description" content="Debug node的调试方式  打日志通过使用console.log方法，此方式相当便捷，当相对于难点的bug还是比较无力。 node自带的debugger调试器官方文档debugger 基于TCP的协议，通过commod界面可以对nodejs脚本进行调试 1234# 旧版的nodenode debug **.js# 最新的nodenode inspector **.js 运行后终端出现comm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="react-native实践">
-<meta property="og:url" content="http://yoursite.com/2017/10/15/react-native实践/index.html">
+<meta property="og:title" content="node-debug">
+<meta property="og:url" content="http://yoursite.com/2018/02/08/node-debug/index.html">
 <meta property="og:site_name" content="Jie&#39;s blog">
-<meta property="og:description" content="react-native记录react native开发过程的种姿势和bug收集 欢迎反馈和bug提供 tools react-native-cli，官方推出创建项目的工具（自带Watchman依赖，不行另行安装）。 create-react-native-app，是由Facebook和Expo联合开发用于快速创建项目的工具，特点无需用户再按装adroid sdk和xcode。需要搭配Expo开发">
+<meta property="og:description" content="Debug node的调试方式  打日志通过使用console.log方法，此方式相当便捷，当相对于难点的bug还是比较无力。 node自带的debugger调试器官方文档debugger 基于TCP的协议，通过commod界面可以对nodejs脚本进行调试 1234# 旧版的nodenode debug **.js# 最新的nodenode inspector **.js 运行后终端出现comm">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-31T12:56:04.015Z">
+<meta property="og:image" content="http://yoursite.com/assets/0B65E4D4-71F6-4578-A774-F765B19EBD48.png">
+<meta property="og:image" content="http://yoursite.com/assets/屏幕快照%202018-02-08%20下午2.29.18.png">
+<meta property="og:image" content="http://yoursite.com/assets/652DFD0D-4DAE-46A3-BF43-A6C4BDF127BE.png">
+<meta property="og:image" content="http://yoursite.com/assets/47094384-6D75-4699-A72C-4C4CE407D583.png">
+<meta property="og:image" content="http://yoursite.com/assets/14C4545E-B727-47F7-B454-D129C4FD72FB%202.png">
+<meta property="og:updated_time" content="2018-02-08T07:43:09.361Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="react-native实践">
-<meta name="twitter:description" content="react-native记录react native开发过程的种姿势和bug收集 欢迎反馈和bug提供 tools react-native-cli，官方推出创建项目的工具（自带Watchman依赖，不行另行安装）。 create-react-native-app，是由Facebook和Expo联合开发用于快速创建项目的工具，特点无需用户再按装adroid sdk和xcode。需要搭配Expo开发">
+<meta name="twitter:title" content="node-debug">
+<meta name="twitter:description" content="Debug node的调试方式  打日志通过使用console.log方法，此方式相当便捷，当相对于难点的bug还是比较无力。 node自带的debugger调试器官方文档debugger 基于TCP的协议，通过commod界面可以对nodejs脚本进行调试 1234# 旧版的nodenode debug **.js# 最新的nodenode inspector **.js 运行后终端出现comm">
+<meta name="twitter:image" content="http://yoursite.com/assets/0B65E4D4-71F6-4578-A774-F765B19EBD48.png">
 
 
 
@@ -120,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/15/react-native实践/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/02/08/node-debug/"/>
 
 
 
 
 
-  <title>react-native实践 | Jie's blog</title>
+  <title>node-debug | Jie's blog</title>
   
 
 
@@ -258,12 +263,12 @@
   
   
 
-  <article class="post post-type-react-native" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/15/react-native实践/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/08/node-debug/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jie">
@@ -280,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">react-native实践</h1>
+          <h1 class="post-title" itemprop="name headline">node-debug</h1>
         
 
         <div class="post-meta">
@@ -292,8 +297,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-15T17:52:26+08:00">
-                2017-10-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-08T15:41:54+08:00">
+                2018-02-08
               </time>
             
 
@@ -330,56 +335,72 @@
       
 
       
-        <h1 id="react-native"><a href="#react-native" class="headerlink" title="react-native"></a>react-native</h1><p>记录react native开发过程的种姿势和bug收集</p>
-<p>欢迎反馈和bug提供</p>
-<h2 id="tools"><a href="#tools" class="headerlink" title="tools"></a>tools</h2><ul>
-<li>react-native-cli，官方推出创建项目的工具（自带Watchman依赖，不行另行安装）。</li>
-<li>create-react-native-app，是由Facebook和Expo联合开发用于快速创建项目的工具，特点无需用户再按装adroid sdk和xcode。需要搭配Expo开发的工具xde客户端使用。</li>
-<li>Node。</li>
-<li>Yarn，包管理器，如同Npm。</li>
-<li>Nuclide，集成集成环境，可用于编写，运行和测试应用。</li>
-<li>Watchman，监视文件系统变更工具。</li>
-</ul>
-<blockquote>
-<p>开发搭配</p>
+        <h1 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h1><blockquote>
+<p>node的调试方式</p>
 </blockquote>
+<h2 id="打日志"><a href="#打日志" class="headerlink" title="打日志"></a>打日志</h2><p>通过使用<code>console.log</code>方法，此方式相当便捷，当相对于难点的bug还是比较无力。</p>
+<h2 id="node自带的debugger调试器"><a href="#node自带的debugger调试器" class="headerlink" title="node自带的debugger调试器"></a>node自带的debugger调试器</h2><p>官方文档<a href="http://nodejs.cn/api/debugger.html" target="_blank" rel="noopener">debugger</a></p>
+<p>基于TCP的协议，通过commod界面可以对nodejs脚本进行调试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 旧版的node</span></span><br><span class="line">node debug **.js</span><br><span class="line"><span class="comment"># 最新的node</span></span><br><span class="line">node inspector **.js</span><br></pre></td></tr></table></figure>
+<p>运行后终端出现commod界面<br><img src="/assets/0B65E4D4-71F6-4578-A774-F765B19EBD48.png" alt=""></p>
+<p>调试</p>
 <ul>
-<li>官方：react-native-cli（创建项目），Yarn（包管理器），Watchman（文件变更工具），flow，Node（环境）。</li>
-<li>expo：create-react-native-app（创建项目），Expo XDE（命令行工具与发布工具，同时支持使用内部模拟器），Expo（手机预览app），Exp（node，编译，可选择）。</li>
-<li>开发and打包工具：ios（Xcode,simulation），android（andorid-sdk,android-ndk,java,geymotion）。</li>
-<li>编辑器：vscode（推荐），vscode-react-native-tool（集成插件）。</li>
+<li>cont, c - 继续执行</li>
+<li>next, n - 下一步</li>
+<li>step, s - 跳进函数</li>
+<li>out, o - 跳出函数</li>
+<li>pause - 暂停运行代码（类似开发者工具中的暂停按钮</li>
 </ul>
-<h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><ul>
-<li>vscode-react-native-tool，提供了一个开发环境，调试，运行，react-native相关操作命令。</li>
-<li>path Intellisens 文件路径提示补全。</li>
-<li>Auto Close Tag 自动闭合标签。</li>
-<li>Auto Rename Tag 自动重命名标签。</li>
-<li>react-native-react-redux-snippets-for-es6-es7 代码片段。</li>
-<li>vscode-language-babel 语法高亮。</li>
-<li>vscode-react-native-tool的salsa代码提示功能未能启用（估计操作姿势有问题），使用typescript，typings代替使用。</li>
+<p>设置断点</p>
+<ul>
+<li>可以通过文本打添加<code>debugger</code></li>
+<li>setBreakpoint(), sb() - 在当前行设置断点</li>
+<li>setBreakpoint(line), sb(line) - 在指定行设置断点</li>
+<li>setBreakpoint(‘fn()’), sb(…) - 在函数体的第一条语句设置断点</li>
+<li>setBreakpoint(‘script.js’, 1), sb(…) - 在 script.js 的第 1 行设置断点</li>
+<li>clearBreakpoint(‘script.js’, 1), cb(…) - 清除 script.js 第 1 行的断点</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">npm install typescript@next -g</span><br><span class="line">// 先全局安装typescript，如何修改vscode配置，手动指定路径。</span><br><span class="line">// --&gt; &quot;typescript.tsdk&quot;：typescirpt安装的路径</span><br><span class="line">npm install typings --global</span><br><span class="line">// 全局安装typings, 智能提示功能</span><br><span class="line">typings install dt~react-native --save</span><br><span class="line">// 在项目的根目录运行</span><br><span class="line">// end 重启</span><br></pre></td></tr></table></figure>
-<h2 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h2><h3 id="run-ios"><a href="#run-ios" class="headerlink" title="run ios"></a>run ios</h3><ul>
-<li>预先编译要对其开发的平台，如ios就需要xcode上编译并在设备或者模拟器运行。后续开发不需要再次编译，可以直接类似开发运行开发，除了对ios相关有代码功能才需要编译。</li>
-<li>使用vscode reactnative-tools插件run ios运行模拟器上，前提电脑需要安装xcode。</li>
+<p>执行</p>
+<ul>
+<li>run - 运行脚本（调试器开始时自动运行）</li>
+<li>restart - 重新启动脚本(每次设置完断点后可以运行此命令方便点)</li>
+<li>kill - 终止脚本</li>
 </ul>
-<h3 id="debugger"><a href="#debugger" class="headerlink" title="debugger"></a>debugger</h3><ul>
-<li>npm start运行下在模拟器command + d，选择Debug JS Remotely开启debug功能，在Chrome上debugger调试。</li>
-<li>使用vscode reactnative-tools插件start packager运行下，在vscode debugger功能选项下添加配置react native: debug ios 或者 react native: debug android，选择对应的平台，点击进行调试。如何在模拟器command + d，选择Debug JS Remotely开启debug功能。（推荐，比较方便直接在代码上打断点）。</li>
+<p><code>node inspect</code>和<code>node --inspect</code>的区别？<br><code>node inspect</code>启动是command界面操作debug方式，而<code>node --inspect</code>可以上 Chrome 的开发者工具附加到 Node.js 实例以用于调试和性能分析，这是由 V8 的检查器集成来的。</p>
+<p>中规中矩，还是在编辑器上设置断点调试才是最方便的，不过多学中node debug方式有益无害。</p>
+<h2 id="node-inspector"><a href="#node-inspector" class="headerlink" title="node-inspector"></a>node-inspector</h2><p>这是社区提供的优秀的debugging工具。<br>Node Inspector 是 Node.js 应用程序的调试器接口，通过它可以使用 Blink（Chrome 浏览器内核）开发工具来进行 debugging。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">npm install -g node-inspector</span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">node-debug **.js</span><br></pre></td></tr></table></figure>
+<p>node-debug 命令将在默认浏览器中加载 Node Inspector。</p>
+<p><em>node inspector仅使用于chrome和opera，若是其它浏览器需要在打开inspect页面</em></p>
+<h2 id="node自带新的方式"><a href="#node自带新的方式" class="headerlink" title="node自带新的方式"></a>node自带新的方式</h2><p>官方文档<a href="http://nodejs.cn/api/cli.html#cli_inspect_host_port" target="_blank" rel="noopener">command inspect参数选项</a></p>
+<p>V8检查器集成允许Chrome DevTools和IDE等工具调试和配置Node.js实例。 这些工具通过tcp端口附加到Node.js实例，并使用Chrome Debugging Protocol调试协议进行通信。</p>
+<p>可以是用此方式代替<code>node-inspector</code>工具的使用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node --inspect **.js</span><br></pre></td></tr></table></figure>
+<p><strong>与<code>--inspect-brk</code>对比</strong><br><code>--inspect-brk</code>会在应用代码的第一行断开，方便从头开始调试</p>
+<p>要求：</p>
+<ul>
+<li>Node.js 6.3+</li>
+<li>Chrome 55+</li>
+<li>Enable a new way of Node.js debugging in Chrome</li>
+<li>在chrome输入<code>chrome://flags/#enable-devtools-experiments</code></li>
+<li>开启<code>Developer Tools experiments</code></li>
+<li>重启Chrome</li>
+<li>打开Chrome的DevTools-&gt;Setting-&gt;Experiments 选项（在重启之后它开始可见）</li>
+<li>按6次’SHIFT’以显示隐藏的实验功能</li>
+<li>选中 “Node debugging”</li>
+<li>打开/关闭 DevTools</li>
 </ul>
-<h3 id="redux-tools"><a href="#redux-tools" class="headerlink" title="redux tools"></a>redux tools</h3><p>使用redux-devTools工具调试redux。<br>app开发和web开发在使用redux-devTools工具上是不一样，需要远程支持的。安装<code>remote-edux-devTools</code>，<code>remotedev-server</code>，建议在package.json上添加“remotedev –hostname=localhost –port=5678”次命令，方便快速启动，另外代码添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">import &#123; composeWithDevTools &#125; from &apos;remote-redux-devtools&apos;;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">const composeEnhancers = composeWithDevTools(&#123; realtime: true, port: 5678, hostname: &apos;localhost&apos; &#125;);</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">createStore(reducers,initialState, composeEnhancers());</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<p>其中代码中的5678端口必须和添加script命令中的端口配置一致。<br>启动redux-devTools的remote功能，把端口等配置输入即可。</p>
-<h2 id="components"><a href="#components" class="headerlink" title="components"></a>components</h2><ul>
-<li><a href="">react-navigation
-</a></li>
-<li><a href="">react-native-scrollable-tab-view
-</a></li>
-<li><a href="">react-native-vector-icons</a></li>
-<li><a href="">react-native-splash-screen</a></li>
-</ul>
-<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><ol>
-<li>react-native 0.47.1，使用redux-saga，需要修改babel-preset-react-native文件/config/main.js中’babel-preset-transform-regenerator’，建议注释掉。</li>
-</ol>
+<p><em>最新版的chrome已经没有Node debugging，默认启动</em></p>
+<p><strong>use</strong></p>
+<p>运行<code>node --inspect **.js</code><br>终端输出<br><img src="/assets/屏幕快照 2018-02-08 下午2.29.18.png" alt=""></p>
+<p>打开chrome，输入<code>chrome://inspect/</code>，如下选择你对应的<code>inspect</code><br><img src="/assets/652DFD0D-4DAE-46A3-BF43-A6C4BDF127BE.png" alt=""></p>
+<p>调试<br><img src="/assets/47094384-6D75-4699-A72C-4C4CE407D583.png" alt=""></p>
+<h2 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h2><p>使用IDE工具上自带的debug功能进行调试。</p>
+<blockquote>
+<p>推荐使用vscode</p>
+</blockquote>
+<p><img src="/assets/14C4545E-B727-47F7-B454-D129C4FD72FB 2.png" alt=""></p>
+<p>也可以使用其它的编辑器<code>webstorm</code>等进行debug。</p>
 
       
     </div>
@@ -395,12 +416,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/react-native/" rel="tag"># react-native</a>
-          
-        </div>
-      
 
       
       
@@ -410,8 +425,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/01/react-skills/" rel="next" title="react-skills">
-                <i class="fa fa-chevron-left"></i> react-skills
+              <a href="/2017/12/31/2017-End/" rel="next" title="2017 End">
+                <i class="fa fa-chevron-left"></i> 2017 End
               </a>
             
           </div>
@@ -419,10 +434,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/31/blog/" rel="prev" title="blog">
-                blog <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -563,7 +574,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#react-native"><span class="nav-number">1.</span> <span class="nav-text">react-native</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tools"><span class="nav-number">1.1.</span> <span class="nav-text">tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode"><span class="nav-number">1.2.</span> <span class="nav-text">vscode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debug"><span class="nav-number">1.3.</span> <span class="nav-text">debug</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#run-ios"><span class="nav-number">1.3.1.</span> <span class="nav-text">run ios</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#debugger"><span class="nav-number">1.3.2.</span> <span class="nav-text">debugger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux-tools"><span class="nav-number">1.3.3.</span> <span class="nav-text">redux tools</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#components"><span class="nav-number">1.4.</span> <span class="nav-text">components</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bug"><span class="nav-number">1.5.</span> <span class="nav-text">bug</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Debug"><span class="nav-number">1.</span> <span class="nav-text">Debug</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打日志"><span class="nav-number">1.1.</span> <span class="nav-text">打日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node自带的debugger调试器"><span class="nav-number">1.2.</span> <span class="nav-text">node自带的debugger调试器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node-inspector"><span class="nav-number">1.3.</span> <span class="nav-text">node-inspector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node自带新的方式"><span class="nav-number">1.4.</span> <span class="nav-text">node自带新的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDE"><span class="nav-number">1.5.</span> <span class="nav-text">IDE</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -262,6 +262,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/08/node-debug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://service.gopeak.cn/public/MRLYJ.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/08/node-debug/" itemprop="url">node-debug</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-08T15:41:54+08:00">
+                2018-02-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h1><blockquote>
+<p>node的调试方式</p>
+</blockquote>
+<h2 id="打日志"><a href="#打日志" class="headerlink" title="打日志"></a>打日志</h2><p>通过使用<code>console.log</code>方法，此方式相当便捷，当相对于难点的bug还是比较无力。</p>
+<h2 id="node自带的debugger调试器"><a href="#node自带的debugger调试器" class="headerlink" title="node自带的debugger调试器"></a>node自带的debugger调试器</h2><p>官方文档<a href="http://nodejs.cn/api/debugger.html" target="_blank" rel="noopener">debugger</a></p>
+<p>基于TCP的协议，通过commod界面可以对nodejs脚本进行调试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 旧版的node</span></span><br><span class="line">node debug **.js</span><br><span class="line"><span class="comment"># 最新的node</span></span><br><span class="line">node inspector **.js</span><br></pre></td></tr></table></figure>
+<p>运行后终端出现commod界面<br><img src="/assets/0B65E4D4-71F6-4578-A774-F765B19EBD48.png" alt=""></p>
+<p>调试</p>
+<ul>
+<li>cont, c - 继续执行</li>
+<li>next, n - 下一步</li>
+<li>step, s - 跳进函数</li>
+<li>out, o - 跳出函数</li>
+<li>pause - 暂停运行代码（类似开发者工具中的暂停按钮</li>
+</ul>
+<p>设置断点</p>
+<ul>
+<li>可以通过文本打添加<code>debugger</code></li>
+<li>setBreakpoint(), sb() - 在当前行设置断点</li>
+<li>setBreakpoint(line), sb(line) - 在指定行设置断点</li>
+<li>setBreakpoint(‘fn()’), sb(…) - 在函数体的第一条语句设置断点</li>
+<li>setBreakpoint(‘script.js’, 1), sb(…) - 在 script.js 的第 1 行设置断点</li>
+<li>clearBreakpoint(‘script.js’, 1), cb(…) - 清除 script.js 第 1 行的断点</li>
+</ul>
+<p>执行</p>
+<ul>
+<li>run - 运行脚本（调试器开始时自动运行）</li>
+<li>restart - 重新启动脚本(每次设置完断点后可以运行此命令方便点)</li>
+<li>kill - 终止脚本</li>
+</ul>
+<p><code>node inspect</code>和<code>node --inspect</code>的区别？<br><code>node inspect</code>启动是command界面操作debug方式，而<code>node --inspect</code>可以上 Chrome 的开发者工具附加到 Node.js 实例以用于调试和性能分析，这是由 V8 的检查器集成来的。</p>
+<p>中规中矩，还是在编辑器上设置断点调试才是最方便的，不过多学中node debug方式有益无害。</p>
+<h2 id="node-inspector"><a href="#node-inspector" class="headerlink" title="node-inspector"></a>node-inspector</h2><p>这是社区提供的优秀的debugging工具。<br>Node Inspector 是 Node.js 应用程序的调试器接口，通过它可以使用 Blink（Chrome 浏览器内核）开发工具来进行 debugging。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">npm install -g node-inspector</span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">node-debug **.js</span><br></pre></td></tr></table></figure>
+<p>node-debug 命令将在默认浏览器中加载 Node Inspector。</p>
+<p><em>node inspector仅使用于chrome和opera，若是其它浏览器需要在打开inspect页面</em></p>
+<h2 id="node自带新的方式"><a href="#node自带新的方式" class="headerlink" title="node自带新的方式"></a>node自带新的方式</h2><p>官方文档<a href="http://nodejs.cn/api/cli.html#cli_inspect_host_port" target="_blank" rel="noopener">command inspect参数选项</a></p>
+<p>V8检查器集成允许Chrome DevTools和IDE等工具调试和配置Node.js实例。 这些工具通过tcp端口附加到Node.js实例，并使用Chrome Debugging Protocol调试协议进行通信。</p>
+<p>可以是用此方式代替<code>node-inspector</code>工具的使用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node --inspect **.js</span><br></pre></td></tr></table></figure>
+<p><strong>与<code>--inspect-brk</code>对比</strong><br><code>--inspect-brk</code>会在应用代码的第一行断开，方便从头开始调试</p>
+<p>要求：</p>
+<ul>
+<li>Node.js 6.3+</li>
+<li>Chrome 55+</li>
+<li>Enable a new way of Node.js debugging in Chrome</li>
+<li>在chrome输入<code>chrome://flags/#enable-devtools-experiments</code></li>
+<li>开启<code>Developer Tools experiments</code></li>
+<li>重启Chrome</li>
+<li>打开Chrome的DevTools-&gt;Setting-&gt;Experiments 选项（在重启之后它开始可见）</li>
+<li>按6次’SHIFT’以显示隐藏的实验功能</li>
+<li>选中 “Node debugging”</li>
+<li>打开/关闭 DevTools</li>
+</ul>
+<p><em>最新版的chrome已经没有Node debugging，默认启动</em></p>
+<p><strong>use</strong></p>
+<p>运行<code>node --inspect **.js</code><br>终端输出<br><img src="/assets/屏幕快照 2018-02-08 下午2.29.18.png" alt=""></p>
+<p>打开chrome，输入<code>chrome://inspect/</code>，如下选择你对应的<code>inspect</code><br><img src="/assets/652DFD0D-4DAE-46A3-BF43-A6C4BDF127BE.png" alt=""></p>
+<p>调试<br><img src="/assets/47094384-6D75-4699-A72C-4C4CE407D583.png" alt=""></p>
+<h2 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h2><p>使用IDE工具上自带的debug功能进行调试。</p>
+<blockquote>
+<p>推荐使用vscode</p>
+</blockquote>
+<p><img src="/assets/14C4545E-B727-47F7-B454-D129C4FD72FB 2.png" alt=""></p>
+<p>也可以使用其它的编辑器<code>webstorm</code>等进行debug。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/2017-End/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1063,7 +1248,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1129,7 +1314,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
