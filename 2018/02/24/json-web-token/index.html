@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="Jie&#39;s blog">
 <meta property="og:description" content="json-web-token json-web-token，简称jwt。是服务端开发的认证的一种方式，是一种基于JSON的、用于在网络上声明某种主张的令牌（token）。JWT通常由三部分组成: 头信息（header）, 消息体/载荷（payload）和签名（signature）。  header中的内容指定的是jwt的签名算法 1234&amp;#123;  &quot;typ&quot;: &quot;JWT&quot;, // 类型  &quot;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/assets/屏幕快照%202018-02-23%20下午4.39.44.png">
-<meta property="og:image" content="http://yoursite.com/assets/屏幕快照%202018-02-23%20下午4.40.14.png">
-<meta property="og:image" content="http://yoursite.com/assets/屏幕快照%202018-02-23%20下午4.40.39.png">
-<meta property="og:updated_time" content="2018-02-24T01:18:08.000Z">
+<meta property="og:image" content="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-23%20%E4%B8%8B%E5%8D%884.39.44.png">
+<meta property="og:image" content="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-23%20%E4%B8%8B%E5%8D%884.40.14.png">
+<meta property="og:image" content="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-23%20%E4%B8%8B%E5%8D%884.40.39.png">
+<meta property="og:updated_time" content="2018-02-27T03:44:16.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="json-web-token">
 <meta name="twitter:description" content="json-web-token json-web-token，简称jwt。是服务端开发的认证的一种方式，是一种基于JSON的、用于在网络上声明某种主张的令牌（token）。JWT通常由三部分组成: 头信息（header）, 消息体/载荷（payload）和签名（signature）。  header中的内容指定的是jwt的签名算法 1234&amp;#123;  &quot;typ&quot;: &quot;JWT&quot;, // 类型  &quot;">
-<meta name="twitter:image" content="http://yoursite.com/assets/屏幕快照%202018-02-23%20下午4.39.44.png">
+<meta name="twitter:image" content="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-23%20%E4%B8%8B%E5%8D%884.39.44.png">
 
 
 
@@ -272,7 +272,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jie">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://service.gopeak.cn/public/MRLYJ.jpg">
+      <meta itemprop="image" content="http://120.78.170.250:4300/MRLYJ.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -409,14 +409,14 @@
 <p>其中<code>secret</code>为密钥，不限字符串，文件也行。<code>unless()</code>用于设置那些路径不用经过校验，也就是<code>public api</code>（通常对于注册和登录接口是不需要校验权限的）。当校验成功时，<code>koa-jwt</code>会在请求的上下文，即<code>ctx</code>的<code>state</code>中添加<code>user</code>属性，该属性的值为解析后的数据，当然你也可以更换键名。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app.use(jwt(&#123; <span class="attr">secret</span>: <span class="string">'shared-secret'</span>, <span class="attr">key</span>: <span class="string">'jwtdata'</span> &#125;));</span><br><span class="line"># 可以通过ctx.state.jwtdata获取值</span><br></pre></td></tr></table></figure>
 <p><strong>register</strong><br>实现用户注册，将用户信息存入数据库。实际项目中需要加密，字段校验等措施。</p>
-<p><img src="/assets/屏幕快照 2018-02-23 下午4.39.44.png" alt=""></p>
+<p><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-23%20%E4%B8%8B%E5%8D%884.39.44.png" alt=""></p>
 <p><strong>login</strong><br>实现用户登录，查询数据库是否该用户，然后将有关数据通过<code>jsonwebtoken</code>签名生产token并返回给客户端，客户端可以通过<code>localstorage</code>等方式将token存储在本地存储，在每次的 HTTP 请求中，都将 token 添加在 HTTP Header Authorazition: Bearer token 中。后端每次经过<code>koa-jwt</code>去验证该token的正确与否。只有token正确后才能访问到对应的资源。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jsonwebtoken.sign(&#123;</span><br><span class="line">    data: user._id,</span><br><span class="line">  &#125;, secret, &#123;</span><br><span class="line">  expiresIn: <span class="number">60</span> * <span class="number">2</span>, <span class="comment">// 设置token有效期</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p><code>secret</code>为密钥，记住这里的secret必须要与中间件<code>jwt()</code>中的secret 一致。</p>
-<p><img src="/assets/屏幕快照 2018-02-23 下午4.40.14.png" alt=""></p>
+<p><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-23%20%E4%B8%8B%E5%8D%884.40.14.png" alt=""></p>
 <p><strong>users</strong><br>实现获取用户信息，我们需要在头部自定义<code>Authorization</code>字段，就可以获取对应的资源。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: Bearer ...(token)</span><br></pre></td></tr></table></figure>
-<p><img src="/assets/屏幕快照 2018-02-23 下午4.40.39.png" alt=""></p>
+<p><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-23%20%E4%B8%8B%E5%8D%884.40.39.png" alt=""></p>
 <p><a href="https://github.com/Mrlyjoutlook/node_notebook_demo" target="_blank" rel="noopener">项目地址</a>，<strong>运行npm run jwt</strong></p>
 
       
@@ -521,7 +521,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="http://service.gopeak.cn/public/MRLYJ.jpg"
+                src="http://120.78.170.250:4300/MRLYJ.jpg"
                 alt="Jie" />
             
               <p class="site-author-name" itemprop="name">Jie</p>

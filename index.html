@@ -267,7 +267,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jie">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://service.gopeak.cn/public/MRLYJ.jpg">
+      <meta itemprop="image" content="http://120.78.170.250:4300/MRLYJ.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -408,14 +408,14 @@
 <p>其中<code>secret</code>为密钥，不限字符串，文件也行。<code>unless()</code>用于设置那些路径不用经过校验，也就是<code>public api</code>（通常对于注册和登录接口是不需要校验权限的）。当校验成功时，<code>koa-jwt</code>会在请求的上下文，即<code>ctx</code>的<code>state</code>中添加<code>user</code>属性，该属性的值为解析后的数据，当然你也可以更换键名。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app.use(jwt(&#123; <span class="attr">secret</span>: <span class="string">'shared-secret'</span>, <span class="attr">key</span>: <span class="string">'jwtdata'</span> &#125;));</span><br><span class="line"># 可以通过ctx.state.jwtdata获取值</span><br></pre></td></tr></table></figure>
 <p><strong>register</strong><br>实现用户注册，将用户信息存入数据库。实际项目中需要加密，字段校验等措施。</p>
-<p><img src="/assets/屏幕快照 2018-02-23 下午4.39.44.png" alt=""></p>
+<p><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-23%20%E4%B8%8B%E5%8D%884.39.44.png" alt=""></p>
 <p><strong>login</strong><br>实现用户登录，查询数据库是否该用户，然后将有关数据通过<code>jsonwebtoken</code>签名生产token并返回给客户端，客户端可以通过<code>localstorage</code>等方式将token存储在本地存储，在每次的 HTTP 请求中，都将 token 添加在 HTTP Header Authorazition: Bearer token 中。后端每次经过<code>koa-jwt</code>去验证该token的正确与否。只有token正确后才能访问到对应的资源。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jsonwebtoken.sign(&#123;</span><br><span class="line">    data: user._id,</span><br><span class="line">  &#125;, secret, &#123;</span><br><span class="line">  expiresIn: <span class="number">60</span> * <span class="number">2</span>, <span class="comment">// 设置token有效期</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p><code>secret</code>为密钥，记住这里的secret必须要与中间件<code>jwt()</code>中的secret 一致。</p>
-<p><img src="/assets/屏幕快照 2018-02-23 下午4.40.14.png" alt=""></p>
+<p><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-23%20%E4%B8%8B%E5%8D%884.40.14.png" alt=""></p>
 <p><strong>users</strong><br>实现获取用户信息，我们需要在头部自定义<code>Authorization</code>字段，就可以获取对应的资源。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: Bearer ...(token)</span><br></pre></td></tr></table></figure>
-<p><img src="/assets/屏幕快照 2018-02-23 下午4.40.39.png" alt=""></p>
+<p><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-23%20%E4%B8%8B%E5%8D%884.40.39.png" alt=""></p>
 <p><a href="https://github.com/Mrlyjoutlook/node_notebook_demo" target="_blank" rel="noopener">项目地址</a>，<strong>运行npm run jwt</strong></p>
 
           
@@ -470,7 +470,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jie">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://service.gopeak.cn/public/MRLYJ.jpg">
+      <meta itemprop="image" content="http://120.78.170.250:4300/MRLYJ.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -543,7 +543,7 @@
 <h2 id="node自带的debugger调试器"><a href="#node自带的debugger调试器" class="headerlink" title="node自带的debugger调试器"></a>node自带的debugger调试器</h2><p>官方文档<a href="http://nodejs.cn/api/debugger.html" target="_blank" rel="noopener">debugger</a></p>
 <p>基于TCP的协议，通过commod界面可以对nodejs脚本进行调试</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 旧版的node</span></span><br><span class="line">node debug **.js</span><br><span class="line"><span class="comment"># 最新的node</span></span><br><span class="line">node inspector **.js</span><br></pre></td></tr></table></figure>
-<p>运行后终端出现commod界面<br><img src="/assets/0B65E4D4-71F6-4578-A774-F765B19EBD48.png" alt=""></p>
+<p>运行后终端出现commod界面<br><img src="http://120.78.170.250:4300/blog/0B65E4D4-71F6-4578-A774-F765B19EBD48.png" alt=""></p>
 <p>调试</p>
 <ul>
 <li>cont, c - 继续执行</li>
@@ -593,14 +593,14 @@
 </ul>
 <p><em>最新版的chrome已经没有Node debugging，默认启动</em></p>
 <p><strong>use</strong></p>
-<p>运行<code>node --inspect **.js</code><br>终端输出<br><img src="/assets/屏幕快照 2018-02-08 下午2.29.18.png" alt=""></p>
-<p>打开chrome，输入<code>chrome://inspect/</code>，如下选择你对应的<code>inspect</code><br><img src="/assets/652DFD0D-4DAE-46A3-BF43-A6C4BDF127BE.png" alt=""></p>
-<p>调试<br><img src="/assets/47094384-6D75-4699-A72C-4C4CE407D583.png" alt=""></p>
+<p>运行<code>node --inspect **.js</code><br>终端输出<br><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-08%20%E4%B8%8B%E5%8D%882.29.18.png" alt=""></p>
+<p>打开chrome，输入<code>chrome://inspect/</code>，如下选择你对应的<code>inspect</code><br><img src="http://120.78.170.250:4300/blog/652DFD0D-4DAE-46A3-BF43-A6C4BDF127BE.png" alt=""></p>
+<p>调试<br><img src="http://120.78.170.250:4300/blog/47094384-6D75-4699-A72C-4C4CE407D583.png" alt=""></p>
 <h2 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h2><p>使用IDE工具上自带的debug功能进行调试。</p>
 <blockquote>
 <p>推荐使用vscode</p>
 </blockquote>
-<p><img src="/assets/14C4545E-B727-47F7-B454-D129C4FD72FB 2.png" alt=""></p>
+<p><img src="http://120.78.170.250:4300/blog/14C4545E-B727-47F7-B454-D129C4FD72FB%202.png" alt=""></p>
 <p>也可以使用其它的编辑器<code>webstorm</code>等进行debug。</p>
 
           
@@ -655,7 +655,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jie">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://service.gopeak.cn/public/MRLYJ.jpg">
+      <meta itemprop="image" content="http://120.78.170.250:4300/MRLYJ.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -723,7 +723,7 @@
           
             <h1 id="2017-我的总结"><a href="#2017-我的总结" class="headerlink" title="2017 我的总结"></a>2017 我的总结</h1><p>2017，这一年下来，或喜或悲，有得也有失。</p>
 <h2 id="live"><a href="#live" class="headerlink" title="live"></a>live</h2><p>为什么先讲生活呢，我觉得每个人在自己漫长的职业生涯中，都需要有向上的生活感，正确的价值观。前阵子网上曝出一条新闻<code>某某因被辞职而跳楼身亡</code>，事因我也不想在此博客写，一笔带过吧！人一旦轻易的放弃留下来的莫过于他人的悲痛。生活处处都存在太多的无奈，不易，以及危机，又有多少人能够游刃有余的去面对呢，因此我们都有自己不能为之而放弃的理由。</p>
-<p>2017，这一年我成为了小叔子，舅舅。打上的了各种大人才有的标签，哦，不，我也是一名大人了！<br><img src="http://service.gopeak.cn/public/blog/11514706041.jpg" alt="Alt text"></p>
+<p>2017，这一年我成为了小叔子，舅舅。打上的了各种大人才有的标签，哦，不，我也是一名大人了！<br><img src="http://120.78.170.250:4300/blog/11514706041.jpg" alt="Alt text"></p>
 <p>2017，这一年，妈妈的唠叨还是一样的多，父母也在辛苦的一件一件的完成他们的所想的事，我也不能怠慢自己的人生。</p>
 <p>子在川上曰：逝者如斯夫，不舍昼夜。</p>
 <h2 id="work"><a href="#work" class="headerlink" title="work"></a>work</h2><p>2017，这一年换了一份工作，离开的<code>迪奥大家庭</code>，这家公司算是我职业生涯的一个转折点吧，感谢给予我帮助的人。</p>
@@ -786,7 +786,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jie">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://service.gopeak.cn/public/MRLYJ.jpg">
+      <meta itemprop="image" content="http://120.78.170.250:4300/MRLYJ.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -907,7 +907,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jie">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://service.gopeak.cn/public/MRLYJ.jpg">
+      <meta itemprop="image" content="http://120.78.170.250:4300/MRLYJ.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1076,7 +1076,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jie">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://service.gopeak.cn/public/MRLYJ.jpg">
+      <meta itemprop="image" content="http://120.78.170.250:4300/MRLYJ.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1258,7 +1258,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jie">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://service.gopeak.cn/public/MRLYJ.jpg">
+      <meta itemprop="image" content="http://120.78.170.250:4300/MRLYJ.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1437,7 +1437,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="http://service.gopeak.cn/public/MRLYJ.jpg"
+                src="http://120.78.170.250:4300/MRLYJ.jpg"
                 alt="Jie" />
             
               <p class="site-author-name" itemprop="name">Jie</p>
