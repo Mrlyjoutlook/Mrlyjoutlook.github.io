@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://120.78.170.250:4300/blog/%202018-03-02.4.15.17.png">
 <meta property="og:image" content="http://120.78.170.250:4300/blog/%202018-03-02.4.50.38.png">
-<meta property="og:updated_time" content="2018-03-02T09:17:04.081Z">
+<meta property="og:updated_time" content="2018-03-04T08:01:26.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webSafe-csrf">
 <meta name="twitter:description" content="web safe csrf 在 web 应用上存在很多安全风险，如 csrf（XSRF），既伪造用户请求向网站发起恶意请求，是一种对网站的恶意利用。  通常防御方式都是服务器分发凭证，每次提交请求或者表单时带上凭证给服务器校验是否为恶意的请求 常用的防范方案  对于服务端渲染的表单页面可以把 token 渲染及隐藏在特定的地方，from 表单提交的时候把该 token 通过约定的参数带给后台 将">
@@ -261,7 +261,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-node" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -350,7 +350,7 @@
 <li>服务器接受到请求，通过响应页面时将 token 渲染到页面上的 form 隐藏域中<code>&lt;input type=&quot;hidden&quot; name=&quot;_csrf&quot; value=&quot;xxxx&quot;&gt;</code></li>
 <li>服务端将 token 设置 cookie 带回客户端<code>response headers -&gt; Set-Cookie: xxx</code></li>
 <li>当用户发送 GET 或者 POST 请求时带上<code>_csrf</code>参数（对于 Form 表单直接提交即可，因为会自动把当前表单内所有的 input 提交给后台，包括<code>_csrf</code>）</li>
-<li>后台在接受到请求后解析请求的 cookie 获取 _csrf 的值，然后和用户请求提交的 _csrf 做个比较，如果相等表示请求是合法的</li>
+<li>后台在接受到请求后解析请求的 cookie 从 session 中 获取 secret 的值，然后和用户请求提交的 _csrf 做解析比较，如果相等表示请求是合法的</li>
 </ul>
 <h3 id="所需-middleware"><a href="#所需-middleware" class="headerlink" title="所需 middleware"></a>所需 middleware</h3><p><a href="https://github.com/koajs/session" target="_blank" rel="noopener">koa-session</a></p>
 <p>option</p>
