@@ -262,6 +262,187 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/http-cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://120.78.170.250:4300/MRLYJ.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/15/http-cache/" itemprop="url">http-cache</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T14:13:38+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="http-cache"><a href="#http-cache" class="headerlink" title="http cache"></a>http cache</h1><blockquote>
+<p>http 协议与浏览器的缓存机制</p>
+</blockquote>
+<p>(简易)浏览器执行步骤：</p>
+<p>浏览器 -&gt; 发请求 -&gt; 响应请求 -&gt; 解析资源 -&gt; 显示</p>
+<p>如果每次对于页面的静态资源都跑以上步骤，会影响页面加载渲染速度，使得用户体验被大打折扣。</p>
+<p>(缓存优化)浏览器执行步骤：</p>
+<p>浏览器 -&gt; 发请求 -&gt; 从缓存读取 -&gt; 解析资源 -&gt; 显示</p>
+<p><strong>直接到缓存读取比起从发请求到服务器响应省去了网络传输等途径，加快了浏览器进入解析的进度。</strong></p>
+<p>在前端茫茫的优化道路上，对于静态资源（html/js/css/img/webfont）的请求上有几个理想的指标：</p>
+<ul>
+<li>页面能够以最快的速度获取到其所有的静态资源</li>
+<li>当服务器静态资源未更新时，再次访问不请求服务器，从而是读取浏览器缓存</li>
+<li>当服务器静态资源更新时，请求服务器是最新静态资源。</li>
+</ul>
+<p>其实无非就是<code>该请求的时候快速响应下载，不该请求的时候读取缓存资源</code></p>
+<h2 id="http-头部信息"><a href="#http-头部信息" class="headerlink" title="http 头部信息"></a>http 头部信息</h2><p>http header 包含了缓存相关的规则信息</p>
+<h3 id="强制-指定-缓存（Expires-Cache-Control）"><a href="#强制-指定-缓存（Expires-Cache-Control）" class="headerlink" title="强制/指定 缓存（Expires/Cache-Control）"></a>强制/指定 缓存（Expires/Cache-Control）</h3><p>指资源缓存的方式及有效期</p>
+<p><strong>Expires</strong></p>
+<p>是 http 1.0 的产物，在 http 1.x 后使用 Cache-Control 代替，http 1.x 是没实现 Cache-Control。<br>Expires 的值为服务端返回的到期时间，在响应 http 请求时告诉浏览器在过期时间前浏览器获取静态资源的方式是从浏览器缓存取数据，而无需再次请求。<br>Expires 返回的是服务端的时间，与之比较的是客户端本地设置的时间，有可能存在导致差错。</p>
+<p><strong>Cache-Control</strong></p>
+<p>定义请求缓存指示</p>
+<ul>
+<li>public：响应被缓存，并且在多用户间共享。</li>
+<li>private：默认值，响应只能够作为私有的缓存，不能再用户间共享；</li>
+<li>no-cache：响应不会被缓存,而是实时向服务器端请求资源。</li>
+<li>max-age：数值，单位是秒，从请求时间开始到过期时间之间的秒数。基于请求时间（Date 字段）的相对时间间隔，而不是绝对过期时间；</li>
+</ul>
+<p>Cache-Control 中设定的时间会覆盖 Expires 中指定的时间。若 Cache-Control 的值为<code>ax-age=0</code>，则立即过期重新请求。</p>
+<p><strong><em>Pragma</em></strong></p>
+<p>该字段是兼容 http 1.0 没有 Cache-Control 出现的。</p>
+<ul>
+<li>no-cache，只有唯一一个选项，效果作用和<code>Cache-Control:no-cache</code>一样</li>
+</ul>
+<h3 id="对比-条件-缓存"><a href="#对比-条件-缓存" class="headerlink" title="对比/条件 缓存"></a>对比/条件 缓存</h3><p>第一次请求的时，服务端会响应缓存的标识和数据回到客户端，下次请求时，客户端会被该标识带到服务器，服务器根据缓存标识进行判断，若成功返回 304，则客户端使用缓存资源</p>
+<p><strong>HTTP 304: Not Modified</strong><br>标准解释：Not Modified 客户端有缓冲的文档并发出了一个条件性的请求（一般是提供 If-Modified-Since 头表示客户只想比指定日期更新的文档）。服务器告诉客户，原来缓冲的文档还可以继续使用。</p>
+<h4 id="Last-Modified-If-Modified-Since"><a href="#Last-Modified-If-Modified-Since" class="headerlink" title="Last-Modified/If-Modified-Since"></a>Last-Modified/If-Modified-Since</h4><p><strong>Last-Modified：</strong><br>在响应请求的头部里，用于告知浏览器资源的最后修改时间</p>
+<p><strong>If-Modified-Since：</strong><br>再次请求时，通过此字段通知服务器上次请求时，服务器返回的资源最后修改时间。服务器通过此<code>If-Modified-Since</code>与被请求资源的修改时间<code>mtime</code>进行对比。<br><strong>mtime</strong> 大于 <strong>If-Modified-Since</strong>，响应资源，状态码 200。<br><strong>mtime</strong> 小于或等于 <strong>If-Modified-Since</strong>，则资源无修改，返回状态码 304 通知浏览器读取对应的 cache 资源。</p>
+<p><em>mtime，此处是举例说明，该字段用的是 node file.stats 类的属性</em></p>
+<p><strong>example</strong></p>
+<p>首次请求时，请求头部没带<code>If-Modified-Since</code>，需要获取资源修改时间，并响应<code>Last-Modified</code>字段。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctx.set(<span class="string">'Last-Modified'</span>, stats.mtime.toUTCString());</span><br><span class="line">ctx.body = fs.createReadStream(rootPath);</span><br></pre></td></tr></table></figure>
+<p><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-15%20%E4%B8%8A%E5%8D%8810.54.10.png" alt=""></p>
+<p>再次请求时，浏览器发出的请求会带上<code>If-Modified-Since</code>字段，服务器获取资源修改时间与带上来的<code>If-Modified-Since</code>进行对比。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (</span><br><span class="line">  ctx.get(<span class="string">'if-modified-since'</span>) &amp;&amp;</span><br><span class="line">  ctx.get(<span class="string">'if-modified-since'</span>) === stats.mtime.toUTCString()</span><br><span class="line">) &#123;</span><br><span class="line">  ctx.status = <span class="number">304</span>;</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  ctx.set(<span class="string">'Last-Modified'</span>, stats.mtime.toUTCString());</span><br><span class="line">  ctx.body = fs.createReadStream(rootPath);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-15%20%E4%B8%8A%E5%8D%8810.55.00.png" alt=""></p>
+<h4 id="Etag-If-None-Match"><a href="#Etag-If-None-Match" class="headerlink" title="Etag/If-None-Match"></a>Etag/If-None-Match</h4><p>优先级高于 Last-Modified/If-Modified-Since，比其处理更加细腻精准，Etag 主要为了解决 Last-Modified 无法解决的一些问题。</p>
+<p>eg：</p>
+<ul>
+<li>如资源在短时间内被修改多次，但由于<code>Last-Modified</code>对比只精确到秒级别，故请求依旧走缓存，从而没法获取最新的资源。</li>
+<li>资源定期生成，但内容不变，<code>Last-Modified</code>切被改变，从而引发请求会获取资源，而不是去走缓存。</li>
+</ul>
+<p><strong>example</strong></p>
+<p>首次请求时，请求头部没带<code>If-None-Match</code>，需要获取资源然后根据 file 内容生产 hash，并响应<code>Etag</code>字段。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getHash</span>(<span class="params">str: any</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> chash = crypto.createHash(<span class="string">'sha1'</span>);</span><br><span class="line">  <span class="keyword">return</span> chash.update(str).digest(<span class="string">'base64'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> file = <span class="keyword">await</span> fs.readFile(rootPath);</span><br><span class="line"><span class="keyword">const</span> hash = getHash(file);</span><br><span class="line">...</span><br><span class="line">ctx.set(<span class="string">'Etag'</span>, hash);</span><br><span class="line">ctx.body = fs.createReadStream(rootPath);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-15%20%E4%B8%8A%E5%8D%8811.33.23.png" alt=""></p>
+<p>再次请求时，浏览器发出的请求会带上<code>If-None-Match</code>字段，服务器获取资源计算 hash 与带上来的<code>If-None-Match</code>的 hash 值进行对比。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ctx.get(<span class="string">'if-none-match'</span>) &amp;&amp; ctx.get(<span class="string">'if-none-match'</span>) === hash) &#123;</span><br><span class="line">  ctx.status = <span class="number">304</span>;</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://120.78.170.250:4300/blog/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-15%20%E4%B8%8A%E5%8D%8811.33.34.png" alt=""></p>
+<p><a href="https://github.com/Mrlyjoutlook/node_notebook_demo" target="_blank" rel="noopener">项目 demo 地址，yarn run httpCache</a></p>
+<p>备注：开发时注意关闭浏览器在打开开发者工具时关闭缓存的设置</p>
+<h2 id="end"><a href="#end" class="headerlink" title="end"></a>end</h2><p>http 协议的缓存机制是 web 静态资源缓存及优化的另一种方式，再进一步优化，前端可以采取<code>preloading（预加载）</code>、<code>service work（浏览器新功能）</code>等方式加快页面解析速度。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/前端状态管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1285,7 +1466,7 @@
       
         
           
-            <h1 id="blog"><a href="#blog" class="headerlink" title="blog"></a>blog</h1><p>本人blog现在以这个为主。</p>
+            <h1 id="blog"><a href="#blog" class="headerlink" title="blog"></a>blog</h1><p>本人 blog 现在以这个为主。</p>
 <p>会把之前的搬到这里来。</p>
 
           
@@ -1675,170 +1856,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-nginx" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/31/niginx配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://120.78.170.250:4300/MRLYJ.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jie's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/31/niginx配置/" itemprop="url">niginx配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T17:53:22+08:00">
-                2017-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><ul>
-<li>下面案例中服务器nginx目录路径假设为<code>/home/ubuntu/nginx/</code></li>
-<li>服务器查询当前目录路径命令 pwd</li>
-</ul>
-<h2 id="多配置文件"><a href="#多配置文件" class="headerlink" title="多配置文件"></a>多配置文件</h2><p>在<code>/home/ubuntu/nginx/include/</code>下存在<code>**.a.gopeak.cn.conf</code> <code>**.a.gopeak.cn.conf</code>。  </p>
-<p>修改<code>/home/ubuntu/nginx/nginx.conf</code>文件中的http</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">http:&#123;</span><br><span class="line">    include /home/ubuntu/nginx/include/*.conf</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>如果<code>.conf</code>文件单独存放在每个项目中，可以使用如下命令。（<code>path/to</code>为项目的路径）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s path/to/nginx.conf /home/ubuntu/nginx/conf/include/**.gopeak.cn.conf</span><br></pre></td></tr></table></figure>
-<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><ul>
-<li>$args ： 这个变量等于请求行中的参数，同<code>$query_string</code></li>
-<li>$content_length ： 请求头中的<code>Content-length</code>字段</li>
-<li>$content_type ： 请求头中的<code>Content-Type</code>字段</li>
-<li>$document_root ： 当前请求在<code>root</code>指令中指定的值</li>
-<li>$host ： 请求主机头字段，否则为服务器名称</li>
-<li>$http_user_agent ： 客户端<code>agent</code>信息</li>
-<li>$http_cookie ： 客户端<code>cookie</code>信息</li>
-<li>$limit_rate ： 这个变量可以限制连接速率</li>
-<li>$request_method ： 客户端请求的动作，通常为<code>GET</code>或<code>POST</code></li>
-<li>$remote_addr ： 客户端的IP地址</li>
-<li>$remote_port ： 客户端的端口</li>
-<li>$remote_user ： 已经经过<code>Auth Basic Module</code>验证的用户名</li>
-<li>$request_filename ： 当前请求的文件路径，由<code>root</code>或<code>alias</code>指令与URI请求生成</li>
-<li>$scheme ： HTTP方法（如http，https）</li>
-<li>$server_protocol ： 请求使用的协议，通常是<code>HTTP/1.0</code>或<code>HTTP/1.1</code></li>
-<li>$server_addr ： 服务器地址，在完成一次系统调用后可以确定这个值</li>
-<li>$server_name ： 服务器名称</li>
-<li>$server_port ： 请求到达服务器的端口号</li>
-<li>$request_uri ： 包含请求参数的原始URI，不包含主机名，如<code>/foo/bar.php?arg=baz</code></li>
-<li>$uri ： 不带请求参数的当前URI，$uri不包含主机名，如<code>/foo/bar.html</code></li>
-<li>$document_uri ： 与<code>$uri</code>相同</li>
-</ul>
-<h2 id="listen"><a href="#listen" class="headerlink" title="listen"></a>listen</h2><p>一般监听端口 80</p>
-<h2 id="server-name"><a href="#server-name" class="headerlink" title="server_name"></a>server_name</h2><p>实现多个域名对多个应该端口的匹配，支持前，后缀通配符，正则表达式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name **.gopeak.cn（www.gopeak.** or ~[a-z]+\.gopeak\.cn）</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><p>地址查找规则</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    ...</span><br><span class="line">    location = / &#123;&#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Try-files规则"><a href="#Try-files规则" class="headerlink" title="Try_files规则"></a>Try_files规则</h2><p>try_files $uri $uri/ /index.php<br>假设请求为<a href="http://www.gopeak.cn/test，则$uri为test" target="_blank" rel="noopener">http://www.gopeak.cn/test，则$uri为test</a></p>
-<p>查找/$root/test文件<br>查找/$root/test/目录<br>发起/index.php的内部“子请求”</p>
-<h2 id="Rewrite规则"><a href="#Rewrite规则" class="headerlink" title="Rewrite规则"></a>Rewrite规则</h2><p>rewrite ^/images/(.*).(png|jpg|gif)$ /images?name=$1.$4 last;</p>
-<p>上面的rewrite规则会将文件名改写到参数中  </p>
-<p>last : 相当于Apache的[L]标记，表示完成rewrite<br>break : 停止执行当前虚拟主机的后续rewrite指令集<br>redirect : 返回302临时重定向，地址栏会显示跳转后的地址<br>permanent : 返回301永久重定向，地址栏会显示跳转后的地址  </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1886,7 +1910,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1899,7 +1923,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

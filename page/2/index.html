@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="前端," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,16 @@
 
 
 
-<meta name="description" content="前端状态管理Diffredux/vuex: action -&amp;gt; store -&amp;gt; viewmobx：stroe -&amp;gt; view  层面上 redux 和 vuex 都是基于 Flux 思路的产品。 底层上 redux 遵循不可变的数据原则，重新生成 state。vuex 和 mobx 则是 state 依赖是基于运行时，允许直接修改 state，其中 vuex 是通过 gette">
-<meta name="keywords" content="前端">
-<meta property="og:type" content="article">
-<meta property="og:title" content="前端状态管理">
-<meta property="og:url" content="http://yoursite.com/2018/03/08/前端状态管理/index.html">
+<meta name="description" content="来不及上高峰的个人博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jie&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Jie&#39;s blog">
-<meta property="og:description" content="前端状态管理Diffredux/vuex: action -&amp;gt; store -&amp;gt; viewmobx：stroe -&amp;gt; view  层面上 redux 和 vuex 都是基于 Flux 思路的产品。 底层上 redux 遵循不可变的数据原则，重新生成 state。vuex 和 mobx 则是 state 依赖是基于运行时，允许直接修改 state，其中 vuex 是通过 gette">
+<meta property="og:description" content="来不及上高峰的个人博客">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-08T13:55:05.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端状态管理">
-<meta name="twitter:description" content="前端状态管理Diffredux/vuex: action -&amp;gt; store -&amp;gt; viewmobx：stroe -&amp;gt; view  层面上 redux 和 vuex 都是基于 Flux 思路的产品。 底层上 redux 遵循不可变的数据原则，重新生成 state。vuex 和 mobx 则是 state 依赖是基于运行时，允许直接修改 state，其中 vuex 是通过 gette">
+<meta name="twitter:title" content="Jie&#39;s blog">
+<meta name="twitter:description" content="来不及上高峰的个人博客">
 
 
 
@@ -120,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/08/前端状态管理/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
 
 
-  <title>前端状态管理 | Jie's blog</title>
+  <title>Jie's blog</title>
   
 
 
@@ -155,7 +153,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -248,9 +247,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -258,12 +257,12 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-nginx" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/前端状态管理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/31/niginx配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jie">
@@ -280,7 +279,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">前端状态管理</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/31/niginx配置/" itemprop="url">niginx配置</a></h1>
         
 
         <div class="post-meta">
@@ -292,8 +293,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T21:54:29+08:00">
-                2018-03-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T17:53:22+08:00">
+                2017-03-31
               </time>
             
 
@@ -330,13 +331,53 @@
       
 
       
-        <h1 id="前端状态管理"><a href="#前端状态管理" class="headerlink" title="前端状态管理"></a>前端状态管理</h1><h2 id="Diff"><a href="#Diff" class="headerlink" title="Diff"></a>Diff</h2><p>redux/vuex: action -&gt; store -&gt; view<br>mobx：stroe -&gt; view</p>
-<ul>
-<li>层面上 redux 和 vuex 都是基于 Flux 思路的产品。</li>
-<li>底层上 redux 遵循不可变的数据原则，重新生成 state。vuex 和 mobx 则是 state 依赖是基于运行时，允许直接修改 state，其中 vuex 是通过 getter/setter 实现的双向绑定自动更新对应的视图层上。而 mobx 的 state 是采取可观察的方式，使用装饰器来绑定对应的 state 和视图层。</li>
-<li>redux 和 vuex 上，从 action -&gt; store 的中间还有一层 reducer 或 mutation 去更新 state 从而改变 stroe -&gt; view，不同于 mobx 的只专注 stroe -&gt; view。在改变视图层上 mobx 成本是最低最快的，然而 redux 和 vuex 在 action 层面上可以做更多的限制或者业务逻辑从而规范代码和安全性方面，mobx 虽然专注点不一样，但其同样也可以在<strong>useStrict</strong>使用起 action 层，不过这要使用者自己去规范实施。</li>
+        
+          
+            <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><ul>
+<li>下面案例中服务器nginx目录路径假设为<code>/home/ubuntu/nginx/</code></li>
+<li>服务器查询当前目录路径命令 pwd</li>
 </ul>
+<h2 id="多配置文件"><a href="#多配置文件" class="headerlink" title="多配置文件"></a>多配置文件</h2><p>在<code>/home/ubuntu/nginx/include/</code>下存在<code>**.a.gopeak.cn.conf</code> <code>**.a.gopeak.cn.conf</code>。  </p>
+<p>修改<code>/home/ubuntu/nginx/nginx.conf</code>文件中的http</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">http:&#123;</span><br><span class="line">    include /home/ubuntu/nginx/include/*.conf</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>如果<code>.conf</code>文件单独存放在每个项目中，可以使用如下命令。（<code>path/to</code>为项目的路径）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s path/to/nginx.conf /home/ubuntu/nginx/conf/include/**.gopeak.cn.conf</span><br></pre></td></tr></table></figure>
+<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><ul>
+<li>$args ： 这个变量等于请求行中的参数，同<code>$query_string</code></li>
+<li>$content_length ： 请求头中的<code>Content-length</code>字段</li>
+<li>$content_type ： 请求头中的<code>Content-Type</code>字段</li>
+<li>$document_root ： 当前请求在<code>root</code>指令中指定的值</li>
+<li>$host ： 请求主机头字段，否则为服务器名称</li>
+<li>$http_user_agent ： 客户端<code>agent</code>信息</li>
+<li>$http_cookie ： 客户端<code>cookie</code>信息</li>
+<li>$limit_rate ： 这个变量可以限制连接速率</li>
+<li>$request_method ： 客户端请求的动作，通常为<code>GET</code>或<code>POST</code></li>
+<li>$remote_addr ： 客户端的IP地址</li>
+<li>$remote_port ： 客户端的端口</li>
+<li>$remote_user ： 已经经过<code>Auth Basic Module</code>验证的用户名</li>
+<li>$request_filename ： 当前请求的文件路径，由<code>root</code>或<code>alias</code>指令与URI请求生成</li>
+<li>$scheme ： HTTP方法（如http，https）</li>
+<li>$server_protocol ： 请求使用的协议，通常是<code>HTTP/1.0</code>或<code>HTTP/1.1</code></li>
+<li>$server_addr ： 服务器地址，在完成一次系统调用后可以确定这个值</li>
+<li>$server_name ： 服务器名称</li>
+<li>$server_port ： 请求到达服务器的端口号</li>
+<li>$request_uri ： 包含请求参数的原始URI，不包含主机名，如<code>/foo/bar.php?arg=baz</code></li>
+<li>$uri ： 不带请求参数的当前URI，$uri不包含主机名，如<code>/foo/bar.html</code></li>
+<li>$document_uri ： 与<code>$uri</code>相同</li>
+</ul>
+<h2 id="listen"><a href="#listen" class="headerlink" title="listen"></a>listen</h2><p>一般监听端口 80</p>
+<h2 id="server-name"><a href="#server-name" class="headerlink" title="server_name"></a>server_name</h2><p>实现多个域名对多个应该端口的匹配，支持前，后缀通配符，正则表达式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name **.gopeak.cn（www.gopeak.** or ~[a-z]+\.gopeak\.cn）</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><p>地址查找规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    ...</span><br><span class="line">    location = / &#123;&#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Try-files规则"><a href="#Try-files规则" class="headerlink" title="Try_files规则"></a>Try_files规则</h2><p>try_files $uri $uri/ /index.php<br>假设请求为<a href="http://www.gopeak.cn/test，则$uri为test" target="_blank" rel="noopener">http://www.gopeak.cn/test，则$uri为test</a></p>
+<p>查找/$root/test文件<br>查找/$root/test/目录<br>发起/index.php的内部“子请求”</p>
+<h2 id="Rewrite规则"><a href="#Rewrite规则" class="headerlink" title="Rewrite规则"></a>Rewrite规则</h2><p>rewrite ^/images/(.*).(png|jpg|gif)$ /images?name=$1.$4 last;</p>
+<p>上面的rewrite规则会将文件名改写到参数中  </p>
+<p>last : 相当于Apache的[L]标记，表示完成rewrite<br>break : 停止执行当前虚拟主机的后续rewrite指令集<br>redirect : 返回302临时重定向，地址栏会显示跳转后的地址<br>permanent : 返回301永久重定向，地址栏会显示跳转后的地址  </p>
 
+          
+        
       
     </div>
     
@@ -351,40 +392,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/前端/" rel="tag"># 前端</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/03/04/mobile/" rel="next" title="mobile">
-                <i class="fa fa-chevron-left"></i> mobile
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/15/http-cache/" rel="prev" title="http-cache">
-                http-cache <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -394,11 +409,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -406,8 +424,6 @@
 
 
           
-  
-
 
         </div>
         
@@ -428,17 +444,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -509,22 +516,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端状态管理"><span class="nav-number">1.</span> <span class="nav-text">前端状态管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Diff"><span class="nav-number">1.1.</span> <span class="nav-text">Diff</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -651,10 +642,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
-
-
 
   
 
